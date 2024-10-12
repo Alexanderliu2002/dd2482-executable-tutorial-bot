@@ -4,7 +4,9 @@
   "description": "A slack bot that is integrated in Github actions. This bot is part of our Executable Tutorial for the KTH course DD2482.",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "start": "node src/index.mjs",
+    "dev": "nodemon src/index.mjs"
   },
   "author": "Gustaf Svensson, Alexander Liu",
   "license": "ISC",
