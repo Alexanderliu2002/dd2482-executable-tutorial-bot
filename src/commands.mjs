@@ -1,4 +1,5 @@
-import botUI from './botUI.json' assert { type: 'json' };
+import botUI from './botUI/botUI.json' assert { type: 'json' };
+import { registerActionHandlers } from './botUI/uiActionHandlers.mjs';
 
 export const registerCommands = (app) => {
     app.command('/hi', async ({ command, ack, say }) => {
@@ -33,4 +34,6 @@ export const registerCommands = (app) => {
             console.error(error);
         }
     });
+
+    registerActionHandlers(app);
 }
