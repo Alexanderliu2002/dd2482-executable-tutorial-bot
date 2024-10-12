@@ -1,6 +1,8 @@
 import pkg from '@slack/bolt';
 import dotenv from 'dotenv';
 import { registerCommands } from './commands.mjs';
+import express from 'express';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -15,7 +17,18 @@ const app = new App({
 
 registerCommands(app);
 
+const expressApp = express();
+expressApp.use(express.json());
+expressApp.use(helmet());
+
+expressApp.post('/webhook', async (req, res) => {
+    console.log('Received a webhook event');
+    console.log(req.body);
+    res.send('Received a webhook event');
+});
+
 (async () => {
-    await app.start(process.env.PORT || 3000);
-    console.log('Github Slack bot is running!');
+    await app.start(process.env.SLACK_PORT);
+    expressApp.listen(process.env.EXPRESS_PORT);
+    console.log('Bot is running!');
 })();
