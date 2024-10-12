@@ -1,0 +1,56 @@
+{
+    "type": "modal",
+    "callback_id": "modal-identifier",
+    "title": {
+      "type": "plain_text",
+      "text": "Deployment Actions"
+    },
+    "blocks": [
+      {
+        "type": "section",
+        "block_id": "section-1",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Choose an action:*"
+        }
+      },
+      {
+        "type": "actions",
+        "block_id": "actionblock-1",
+        "elements": [
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Deploy Master"
+            },
+            "value": "deploy_master",
+            "action_id": "deploy_master_action"
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Run Tests"
+            },
+            "value": "run_tests",
+            "action_id": "run_tests_action"
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Redeploy"
+            },
+            "value": "redeploy",
+            "action_id": "redeploy_action"
+          }
+        ]
+      }
+    ],
+    "close": {
+      "type": "plain_text",
+      "text": "Close"
+    }
+  }
+  

@@ -21,12 +21,12 @@ export const registerCommands = (app) => {
         }
     });
 
-    app.command('/github', async ({ command, ack, say }) => {
+    app.command('/github', async ({ command, ack, client }) => {
         try {
             await ack();
-            await say({
-                blocks: botUI,
-                text: 'Welcome to the GitHub bot!'
+            await client.views.open({
+                trigger_id: command.trigger_id,
+                view: botUI
             });
         }
         catch (error) {
