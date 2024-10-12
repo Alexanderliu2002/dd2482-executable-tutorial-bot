@@ -1,6 +1,7 @@
 import pkg from '@slack/bolt';
 import { Octokit } from '@octokit/rest';
 import dotenv from 'dotenv';
+import { registerCommands } from './commands.mjs';
 
 dotenv.config();
 
@@ -13,15 +14,7 @@ const app = new App({
     appToken: process.env.APP_TOKEN
 });
 
-app.command('/hi', async ({ command, ack, say }) => {
-    try {
-        await ack();
-        await say(`Hello!`);
-    }
-    catch (error) {
-        console.error(error);
-    }
-});
+registerCommands(app);
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
