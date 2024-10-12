@@ -16,6 +16,9 @@ export async function triggerAction(eventType) {
             owner,
             repo,
             event_type: eventType,
+            client_payload: {
+                post_url: process.env.SERVER_URL,
+            }
         });
 
         console.log(`Triggered ${eventType} action`);
