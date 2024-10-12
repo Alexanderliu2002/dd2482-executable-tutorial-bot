@@ -35,15 +35,6 @@
             },
             "value": "run_tests",
             "action_id": "run_tests_action"
-          },
-          {
-            "type": "button",
-            "text": {
-              "type": "plain_text",
-              "text": "Redeploy"
-            },
-            "value": "redeploy",
-            "action_id": "redeploy_action"
           }
         ]
       }

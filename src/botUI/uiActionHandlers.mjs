@@ -1,8 +1,14 @@
+import { triggerAction } from "../github-integrations/triggerAction.mjs";
+
 export const registerActionHandlers = (app) => {
     app.action('deploy_master_action', async ({ ack, body, client }) => {
         try {
             await ack();
-            console.log("Deploying master branch...");
+            await triggerAction('trigger-deploy');
+            client.chat.postMessage({
+                channel: body.user.id,
+                text: "Deploy event triggered"
+            })
         }
         catch (error) {
             console.error(error);
@@ -12,17 +18,11 @@ export const registerActionHandlers = (app) => {
     app.action('run_tests_action', async ({ ack, body, client }) => {
         try {
             await ack();
-            console.log("Running tests...");
-        }
-        catch (error) {
-            console.error(error);
-        }
-    });
-
-    app.action('redeploy_action', async ({ ack, body, client }) => {
-        try {
-            await ack();
-            console.log("Redeploying...");
+            await triggerAction('trigger-ci');
+            client.chat.postMessage({
+                channel: body.user.id,
+                text: "Deploy event triggered"
+            })
         }
         catch (error) {
             console.error(error);
