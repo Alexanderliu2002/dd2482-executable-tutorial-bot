@@ -30,6 +30,7 @@ expressApp.post('/webhook', async (req, res) => {
 
     try {
         const message = await getActionLog(runId);
+        console.log('Sending message to Slack');
 
         await app.client.chat.postMessage({
             channel: process.env.SLACK_CHANNEL_ID,
