@@ -1,11 +1,16 @@
 import { Octokit } from "@octokit/rest";
 import dotenv from 'dotenv';
 import JSZip from "jszip";
+import OpenAI from "openai";
 
 dotenv.config();
 
 const owner = process.env.OWNER;
 const repo = process.env.REPO;
+
+const configuration = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
@@ -43,7 +48,7 @@ async function processLogs(codedLogs) {
         if (!file.dir) {
             const content = await file.async('string');
             unpackedFiles[filename] = content;
-            jobLogs.push(parseJobLog(filename, content));
+            jobLogs.push(await parseJobLog(filename, content));
         }
     }
 
@@ -53,7 +58,7 @@ async function processLogs(codedLogs) {
     
     let message = '';
 
-    message += `The workflow "${jobLogs[0].jobName}" was run with status ${jobLogs[0].status}. Here are the individual jobs:\n`;
+    message += `The workflow "${jobLogs[0].jobName}" was run with status ${jobLogs[0].status}. Here is an overview of the individual jobs:\n`;
 
     const cleanJobLogs = jobLogs.slice(1);
 
@@ -71,7 +76,7 @@ async function processLogs(codedLogs) {
     return message;
 }
 
-function parseJobLog(fileName, logContent) {
+async function parseJobLog(fileName, logContent) {
     const jobNumberMatch = fileName.match(/(?:.*\/)?(-?\d+)_/);
     const jobNumber = jobNumberMatch ? jobNumberMatch[1] : null;
 
@@ -86,7 +91,12 @@ function parseJobLog(fileName, logContent) {
     if (errorIndicators.test(logContent)) {
         status = 'failure';
 
-        causes = findErrorCause(logContent);
+        if(process.env.USE_GPT) {
+            causes = await findErrorCauseGPT(jobName, logContent);
+        }
+        else {
+            causes = findErrorCause(logContent);
+        }
     }
 
     if(parseInt(jobNumber) < 0) {
@@ -148,6 +158,36 @@ function extractErrorContext(logContent, errorIndex) {
     }
 
     return contextLine.replace(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z\s*/, '');
+}
+
+async function findErrorCauseGPT(jobName, logContent) {
+    const prompt = `You are an expert in analyzing software build logs. 
+    Please review the following log from a GitHub Actions job named "${jobName}" that has failed:
+    
+    ${logContent}
+    
+    Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.`;
+
+    try {
+        console.log('Sending prompt to OpenAI API');
+        
+        const response = await configuration.chat.completions.create({
+            model: "gpt-4o",
+            messages: [
+                {
+                    role: "system",
+                    content: prompt,
+                },
+            ],
+        });
+
+        return [response.choices[0].message.content];
+    }
+    catch (error) {
+        console.error(error);
+        console.log('Error sending prompt to OpenAI API, using default error causes');
+        return findErrorCause(logContent);
+    }
 }
 
 export async function getActionLog(runId) {
