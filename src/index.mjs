@@ -26,7 +26,23 @@ expressApp.post('/webhook', async (req, res) => {
     console.log('Received a webhook event');
     const runId = req.body.run_id;
     
-    getActionLog(runId);
+    const message = await getActionLog(runId);
+
+    try {
+        console.log('Sending message to Slack');
+
+        await app.client.chat.postMessage({
+            channel: process.env.SLACK_CHANNEL_ID,
+            text: message,
+        });
+
+        console.log('Message sent to Slack');
+
+        res.send('Message sent to Slack');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error sending message to Slack');
+    }
 
     res.send('Received a webhook event');
 });

@@ -1,4 +1,7 @@
 import { triggerAction } from "../github-integrations/triggerAction.mjs";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const registerActionHandlers = (app) => {
     app.action('deploy_master_action', async ({ ack, body, client }) => {
@@ -6,7 +9,7 @@ export const registerActionHandlers = (app) => {
             await ack();
             await triggerAction('trigger-deploy');
             client.chat.postMessage({
-                channel: body.user.id,
+                channel: process.env.SLACK_CHANNEL_ID,
                 text: "Deploy event triggered"
             })
         }
@@ -20,7 +23,7 @@ export const registerActionHandlers = (app) => {
             await ack();
             await triggerAction('trigger-ci');
             client.chat.postMessage({
-                channel: body.user.id,
+                channel: process.env.SLACK_CHANNEL_ID,
                 text: "Deploy event triggered"
             })
         }

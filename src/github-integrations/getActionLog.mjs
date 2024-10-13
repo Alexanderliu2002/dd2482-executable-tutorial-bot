@@ -66,6 +66,8 @@ async function processLogs(codedLogs) {
     message = message.slice(0, -1);
 
     console.log(message);
+
+    return message;
 }
 
 function parseJobLog(fileName, logContent) {
@@ -86,6 +88,8 @@ function parseJobLog(fileName, logContent) {
         return;
     }
 
+    console.log(message);
+
     return {
         jobName: jobName,
         status: status,
@@ -103,7 +107,8 @@ export async function getActionLog(runId) {
             run_id: runId,
         });
 
-        await processLogs(response.data);
+        const logs = await processLogs(response.data);
+        return logs;
         
     } catch (error) {
         console.error(error);
