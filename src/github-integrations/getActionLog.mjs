@@ -60,6 +60,9 @@ async function processLogs(codedLogs) {
     for (const job of cleanJobLogs) {
         if (job) {
             message += `Job: ${job.jobName} - ${job.status}\n`;
+            if (job.status === 'failure') {
+                message += `Causes:\n    ${job.causes.join(',\n    ')}\n`;
+            }
         }
     }
 
@@ -78,12 +81,25 @@ function parseJobLog(fileName, logContent) {
 
     const errorIndicators = /(?<!continue on )error|fail/i;
 
+    let causes = [];
+
     if (errorIndicators.test(logContent)) {
         status = 'failure';
+
+        causes = findErrorCause(logContent);
     }
 
     if(parseInt(jobNumber) < 0) {
         return;
+    }
+
+    if (status === 'failure') {
+        return {
+            jobName: jobName,
+            status: status,
+            jobNumber: parseInt(jobNumber),
+            causes: causes,
+        };
     }
 
     return {
@@ -91,6 +107,47 @@ function parseJobLog(fileName, logContent) {
         status: status,
         jobNumber: parseInt(jobNumber),
     };
+}
+
+function findErrorCause(logContent) {
+    const errorIndicators = [
+        { regex: /FAIL\s.+/i, cause: 'Test Failure' },
+        { regex: /✕\s.+/i, cause: 'Test Failure' },
+        { regex: /●\s.+/i, cause: 'Test Failure' },
+        { regex: /error\s/i, cause: 'Error' },
+        { regex: /Process completed with exit code \d+/i, cause: 'Process Exit Error' },
+        { regex: /assert.strictEqual\(.+\)/i, cause: 'Assertion Error' },
+        { regex: /jest did not exit/i, cause: 'Jest Exit Issue' },
+        { regex: /dependency issue/i, cause: 'Dependency Issue' },
+    ];
+
+    let causes = [];
+
+    for (const indicator of errorIndicators) {
+        const match = logContent.match(indicator.regex);
+        if (match) {
+            const contextLine = extractErrorContext(logContent, match.index);
+            causes.push(`${indicator.cause}: ${contextLine}`);
+        }
+    }
+
+    return causes.length > 0 ? causes : ['Unknown Error'];
+}
+
+function extractErrorContext(logContent, errorIndex) {
+    const lines = logContent.split('\n');
+    let contextLine = '';
+
+    let charCount = 0;
+    for (let i = 0; i < lines.length; i++) {
+        charCount += lines[i].length + 1;
+        if (charCount > errorIndex) {
+            contextLine = lines[i].trim();
+            break;
+        }
+    }
+
+    return contextLine.replace(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z\s*/, '');
 }
 
 export async function getActionLog(runId) {
