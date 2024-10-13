@@ -37,14 +37,46 @@ async function processLogs(codedLogs) {
 
     const unpackedFiles = {};
 
+    const jobLogs = [];
+
     for (const [filename, file] of Object.entries(files)) {
         if (!file.dir) {
             const content = await file.async('string');
             unpackedFiles[filename] = content;
-            console.log(`File ${filename} has been extracted`);
-            console.log(content);
+            jobLogs.push(parseJobLog(filename, content));
         }
     }
+
+    jobLogs.sort((a, b) => {
+        return parseInt(a.jobNumber) - parseInt(b.jobNumber); // Ascending order
+    });
+
+    console.log(jobLogs);
+}
+
+function parseJobLog(fileName, logContent) {
+    const jobNumberMatch = fileName.match(/(?:.*\/)?(-?\d+)_/);
+    const jobNumber = jobNumberMatch ? jobNumberMatch[1] : null;
+
+    const jobNameMatch = fileName.match(/(?:.*\/)?\d+_(.+)\.txt$/);
+    const jobName = jobNameMatch ? jobNameMatch[1] : null;
+    let status = 'success';
+
+    const errorIndicators = /(?<!continue on )error|fail/i;
+
+    if (errorIndicators.test(logContent)) {
+        status = 'failure';
+    }
+
+    if(parseInt(jobNumber) < 0) {
+        return;
+    }
+
+    return {
+        jobName: jobName,
+        status: status,
+        jobNumber: parseInt(jobNumber),
+    };
 }
 
 export async function getActionLog(runId) {
