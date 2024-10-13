@@ -53,7 +53,7 @@ async function processLogs(codedLogs) {
     
     let message = '';
 
-    message += `The workflow ${jobLogs[0].jobName} was run with status ${jobLogs[0].status}\n`;
+    message += `The workflow "${jobLogs[0].jobName}" was run with status ${jobLogs[0].status}. Here are the individual jobs:\n`;
 
     const cleanJobLogs = jobLogs.slice(1);
 
@@ -64,8 +64,6 @@ async function processLogs(codedLogs) {
     }
 
     message = message.slice(0, -1);
-
-    console.log(message);
 
     return message;
 }
@@ -88,8 +86,6 @@ function parseJobLog(fileName, logContent) {
         return;
     }
 
-    console.log(message);
-
     return {
         jobName: jobName,
         status: status,
@@ -107,10 +103,12 @@ export async function getActionLog(runId) {
             run_id: runId,
         });
 
-        const logs = await processLogs(response.data);
-        return logs;
+        const message = await processLogs(response.data);
+
+        return message;
         
     } catch (error) {
         console.error(error);
+        return "";
     }
 }
