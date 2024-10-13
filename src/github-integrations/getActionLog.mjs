@@ -50,8 +50,22 @@ async function processLogs(codedLogs) {
     jobLogs.sort((a, b) => {
         return parseInt(a.jobNumber) - parseInt(b.jobNumber); // Ascending order
     });
+    
+    let message = '';
 
-    console.log(jobLogs);
+    message += `The workflow ${jobLogs[0].jobName} was run with status ${jobLogs[0].status}\n`;
+
+    const cleanJobLogs = jobLogs.slice(1);
+
+    for (const job of cleanJobLogs) {
+        if (job) {
+            message += `Job: ${job.jobName} - ${job.status}\n`;
+        }
+    }
+
+    message = message.slice(0, -1);
+
+    console.log(message);
 }
 
 function parseJobLog(fileName, logContent) {
