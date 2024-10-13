@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { registerCommands } from './commands.mjs';
 import express from 'express';
 import helmet from 'helmet';
+import { getActionLog } from './github-integrations/getActionLog.mjs';
 
 dotenv.config();
 
@@ -23,7 +24,10 @@ expressApp.use(helmet());
 
 expressApp.post('/webhook', async (req, res) => {
     console.log('Received a webhook event');
-    console.log(req.body);
+    const runId = req.body.run_id;
+    
+    getActionLog(runId);
+
     res.send('Received a webhook event');
 });
 
