@@ -1,5 +1,7 @@
 # Setting up some simple JEST testing
 
+Now let's head to our freshly installed repo at /calculator-app/ in our code editor (the "Editor" tab)
+
 The JEST-module is very easy to integrate into your node-servers. All it needs after installation (npm install in last step) is a config file and some tests written as anonymous Javascript functions. Let's start with a basic config file and testfile:
 
 ```

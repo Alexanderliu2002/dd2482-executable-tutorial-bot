@@ -9,9 +9,9 @@ For this tutorial we will be using node-js and hence the JEST-package, but note 
 Let's start by importing and setting up our node project which we want to add our Github Actions to, in this case a simple calculator app:
 
 ```
-mkdir calculator-app
-cd calculator-app
 sudo apt update
+sudo apt install npm
+Y
 sudo apt install git
 git clone https://github.com/leegrash/dd2482-executable-tutorial.git
 npm install
