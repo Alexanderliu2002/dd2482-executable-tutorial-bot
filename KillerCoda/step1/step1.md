@@ -19,12 +19,19 @@ Submit Yes at the prompt:
 Yes
 ```{{exec}}
 
-And install git and our npm-packages:
+And install git:
 
 ```
 sudo apt install git
+```{{exec}}
+
+...Aaaaand clone our git:
+
+```
+cd
 git clone https://github.com/leegrash/dd2482-executable-tutorial.git
+cd dd2482-executable-tutorial
 npm install
 ```{{exec}} 
 
-Because you are so amazing, the npm is configed so that this also installs JEST for us!
+Because you are amazing, we have configed the npm to install JEST for us preemptively!

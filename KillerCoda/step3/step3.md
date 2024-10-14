@@ -13,18 +13,7 @@ touch ci.yml
 touch deploy.yml
 ```{{exec}}
 
-Now we want to add some basic placeholder yml to our ci.yml file. But before that, we want to look at the special part of this .yml which tells GitHub to send a html POST-request with our job "run-id" back to a webhook once the other jobs are finished. The job looks like this:
-
-```
-    - name: Notify Webhook
-      if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
-      run: |
-        curl -X POST ${{ github.event.client_payload.post_url }} \
-        -H "Content-Type: application/json" \
-        -d '{"run_id": "${{ github.run_id }}"}'
-``` 
-
-We'll get to the use of this code snippet later. Now, let us add our full yml to the ci.yml file:
+Now let's create a basic ci.yml file. We've prepared some code for you to copy and paste ahead of time:
 
 ```
 name: CI
@@ -68,7 +57,9 @@ jobs:
 
 ``` 
 
-Let's also add some very simple placeholder to our deploy.yml file. Note that this one is also has the POST-request code snippet:
+BUT WAIT! Did you notice anything off about this ci.yml file? If you did, kudos to you! The final job in the file "Notify Webhook" contains a command to send a POST-request to a specified webhook with the "github.run_id". This is very important, since it lets us access this action and its logs using the API in later steps!
+
+Let's also add some very simple placeholder to our deploy.yml file. Note that this one is also has the POST-request job at the bottom:
 
 ```
 name: Deploy to Production
