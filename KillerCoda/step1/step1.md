@@ -14,6 +14,10 @@ sudo apt install npm
 ```{{exec}}
 
 ```
+Yes
+``` {{exec}}
+
+```
 sudo apt install git
 git clone https://github.com/leegrash/dd2482-executable-tutorial.git
 npm install

@@ -25,7 +25,7 @@ module.exports = {
 };
 ```
 
-In our test-file (src/__tests__/App.tests.js) we can write any tests we want using javascript/node.js. Here are some dummy tests with 2 auto-fail tests for later sections:
+In our test-file (src/__tests__/App.tests.js) we can write any tests we want using javascript/node.js. Here are some simple arithmetric tests on our calculator plus two auto-fail tests for teaching purposes:
 
 ```
 const assert = require('assert');

@@ -11,7 +11,7 @@ mkdir workflows
 cd workflows
 touch ci.yml
 touch deploy.yml
-``` {{exec}}
+```{{exec}}
 
 Now we want to add some basic placeholder yml to our ci.yml file. But before that, we want to look at the special part of this .yml which tells GitHub to send a html POST-request with our job "run-id" back to a webhook once the other jobs are finished. The job looks like this:
 
@@ -22,9 +22,9 @@ Now we want to add some basic placeholder yml to our ci.yml file. But before tha
         curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
         -d '{"run_id": "${{ github.run_id }}"}'
-```
+``` 
 
-We'll get to the use of this code snippet later. Now, let's add our full yml to the ci.yml file:
+We'll get to the use of this code snippet later. Now, let us add our full yml to the ci.yml file:
 
 ```
 name: CI
@@ -66,7 +66,7 @@ jobs:
         -H "Content-Type: application/json" \
         -d '{"run_id": "${{ github.run_id }}"}'
 
-```
+``` 
 
 Let's also add some very simple placeholder to our deploy.yml file. Note that this one is also has the POST-request code snippet:
 
@@ -95,4 +95,4 @@ jobs:
           curl -X POST ${{ github.event.client_payload.post_url }} \
           -H "Content-Type: application/json" \
           -d '{"run_id": "${{ github.run_id }}"}'
-```
+``` 
