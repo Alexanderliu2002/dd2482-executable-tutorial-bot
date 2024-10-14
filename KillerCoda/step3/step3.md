@@ -2,7 +2,7 @@
 
 Great work so far! Now we will get to setting up the GitHub action, which we assume you already have some previous knowledge of already. Let's start by creating the workflow folder and YAML files:
 
-Now let's create two basic .yml files, we'll start with the ci.yml file:
+Now let's create two basic .yml files, we'll start with the **ci.yml** file:
 
 ```
 cd
@@ -55,7 +55,7 @@ EOF
 
 BUT WAIT! Did you notice anything off about this ci.yml file? If you did, kudos to you! The final job in the file "Notify Webhook" contains a command to send a POST-request to a specified webhook with the "github.run_id". This is very important, since it lets us access this action and its logs using the API in later steps!
 
-Let's now create our deploy.yml file, and don't forget the same POST-request job at the bottom!:
+Let's now create our **deploy.yml** file, and don't forget the same POST-request job at the bottom!:
 
 ```
 cd
