@@ -8,7 +8,8 @@ The tutorial will show you the manual monitoring/activation of Github Actions te
 <img src="../assets/flowchart.png">
 
 ## Prerequisites:
-Slack account & OpenAI API key (TA has approved)
-Basic knowledge of Github & Github Actions
-Basic understanding of Node.js
+- Slack account & OpenAI API key (TA has approved)
+- Basic understanding of Node.js
+- Basic knowledge of Github & Github Actions
+
 

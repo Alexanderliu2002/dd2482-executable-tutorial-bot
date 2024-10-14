@@ -11,10 +11,9 @@ Let's start by importing and setting up our node project which we want to add ou
 ```
 sudo apt update
 sudo apt install npm
-Y
 sudo apt install git
 git clone https://github.com/leegrash/dd2482-executable-tutorial.git
 npm install
 ```{{exec}}
 
-This also installed JEST :)
+Because you are so amazing, the project npm is configed so that this also installs JEST for us :)
