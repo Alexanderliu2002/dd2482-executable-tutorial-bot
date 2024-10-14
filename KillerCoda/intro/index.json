@@ -1,0 +1,24 @@
+{
+    "title": "Building and integrating a slack bot with GitHub actions using Node.js and an LLM log parser",
+    "description": "Tutorial on connecting Slackbot in Node.js with Github Actions",
+    "details": {
+      "intro": {
+          "text": "intro/intro.md"
+      },
+      "steps": [
+        {
+          "text": "intro/ilo.md"
+        },
+        {
+          "text": "step1/step1.md",
+          "foreground": "step1/foreground.sh"
+        }
+      ],
+      "finish": {
+        "text": "finish/finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "ubuntu"
+    }
+  }
