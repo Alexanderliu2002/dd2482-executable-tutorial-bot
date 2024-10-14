@@ -4,7 +4,7 @@ Now let's head to our freshly installed repo at /calculator-app/ in our code edi
 
 The JEST-module is very easy to integrate into your node-servers. All it needs after installation (npm install in last step) is a config file and some tests written as anonymous Javascript functions. Let's start with a basic config file and testfile:
 
-```bash
+```
 cd 
 cd dd2482-executable-tutorial/Simple-Calculator-master
 touch jest.config.js
@@ -12,11 +12,14 @@ cd src
 mkdir __tests__
 cd __tests__
 touch App.test.js
-```{{exec}}
+```{{exec}} 
 
 In our config-file (jest.config.js) we set our config-environment as node.js and the path to our test-files:
 
 ```
+cd 
+cd dd2482-executable-tutorial/Simple-Calculator-master
+cat << 'EOF' > jest.config.js
 module.exports = {
   testEnvironment: 'node',
   // setupFilesAfterEnv: ['./src/__tests__/setup.js'],
@@ -25,11 +28,15 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
   }
 };
-```
+EOF
+```{{exec}} 
 
 In our test-file (src/__tests__/App.tests.js) we can write any tests we want using javascript/node.js. Here are some simple arithmetric tests on our calculator plus two auto-fail tests for teaching purposes:
 
 ```
+cd 
+cd dd2482-executable-tutorial/Simple-Calculator-master/src/__tests__
+cat << 'EOF' > App.tests.js
 const assert = require('assert');
 
 test('should add two numbers', () => {
@@ -75,6 +82,7 @@ function multiply(a, b) {
 function divide(a, b) {
   return a / b;
 }
-```
+EOF
+```{{exec}}
 
 
