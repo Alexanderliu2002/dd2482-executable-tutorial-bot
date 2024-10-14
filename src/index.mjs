@@ -4,6 +4,7 @@ import { registerCommands } from './commands.mjs';
 import express from 'express';
 import helmet from 'helmet';
 import { getActionLog } from './github-integrations/getActionLog.mjs';
+import { processLogs } from './github-integrations/logProcessor.mjs';
 
 dotenv.config();
 
@@ -29,7 +30,8 @@ expressApp.post('/webhook', async (req, res) => {
     res.send('Received a webhook event');
 
     try {
-        const message = await getActionLog(runId);
+        const codedLogs = await getActionLog(runId);
+        const message = await processLogs(codedLogs);
         console.log('Sending message to Slack');
 
         await app.client.chat.postMessage({
