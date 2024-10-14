@@ -5,10 +5,12 @@ Now let's head to our freshly installed repo at /calculator-app/ in our code edi
 The JEST-module is very easy to integrate into your node-servers. All it needs after installation (npm install in last step) is a config file and some tests written as anonymous Javascript functions. Let's start with a basic config file and testfile:
 
 ```bash
+cd 
 cd dd2482-executable-tutorial/Simple-Calculator-master
 touch jest.config.js
 cd src
 mkdir __tests__
+cd __tests__
 touch App.test.js
 ```{{exec}}
 

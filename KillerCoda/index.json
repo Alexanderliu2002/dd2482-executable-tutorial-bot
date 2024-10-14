@@ -18,6 +18,9 @@
         },
         {
           "text": "step3/step3.md"
+        },
+        {
+          "text": "step4/step4.md"
         }
       ],
       "finish": {
@@ -26,5 +29,8 @@
     },
     "backend": {
       "imageid": "ubuntu"
+    },
+    "interface": {
+      "layout": "ide"
     }
   }
