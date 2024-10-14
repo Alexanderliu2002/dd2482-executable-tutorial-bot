@@ -11,6 +11,9 @@ Let's start by importing and setting up our node project which we want to add ou
 ```
 sudo apt update
 sudo apt install npm
+```{{exec}}
+
+```
 sudo apt install git
 git clone https://github.com/leegrash/dd2482-executable-tutorial.git
 npm install
