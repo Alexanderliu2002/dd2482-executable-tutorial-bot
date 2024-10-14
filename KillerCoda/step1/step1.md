@@ -29,7 +29,7 @@ sudo apt install git
 
 ```
 cd
-git clone https://github.com/leegrash/dd2482-executable-tutorial.git
+git clone -b stock-branch https://github.com/leegrash/dd2482-executable-tutorial.git
 cd dd2482-executable-tutorial
 npm install
 ```{{exec}} 
