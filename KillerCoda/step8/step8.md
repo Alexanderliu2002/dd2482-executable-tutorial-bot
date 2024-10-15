@@ -13,7 +13,7 @@ Copy it and store it it in the .env file:
 cd
 cd node-slackbot
 echo "SLACK_CHANNEL_ID = "Your Slack channel id"
-" >> index.mjs
+" >> .env
 ```{{exec}}
 
 Next, in the top of the command.mjs file, under the import of the botUI add the following lines of code:

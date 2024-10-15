@@ -21,7 +21,7 @@ expressApp.post('/webhook', async (req, res) => {
 
     res.send('Received a webhook event');
 });" index.mjs
-``` {{exec}}
+```{{exec}}
 
 These lines listens for the webhook and posts a message if a message was sent to the url. The post sends the id of the actions run that we use in the next steps.
 

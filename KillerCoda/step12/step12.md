@@ -57,7 +57,7 @@ export async function processLogs(codedLogs) {
 
 
     return message;
-}
+};
 EOF
 ```{{exec}}
 

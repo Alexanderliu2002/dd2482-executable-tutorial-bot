@@ -14,6 +14,16 @@ OPENAI_API_KEY = "Your OpenAI API key"
 USE_GPT = "TRUE"
 ```
 
+(Or use below command to append to file)
+```
+cd
+cd node-slackbot
+echo "
+OPENAI_API_KEY = "Your OpenAI API key"
+USE_GPT = "TRUE"
+" >> .env
+```
+
 We also need to add the following lines to the top of the *logProcessor.mjs* file:
 
 ```
