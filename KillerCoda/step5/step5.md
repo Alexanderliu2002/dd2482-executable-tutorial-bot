@@ -9,11 +9,11 @@ cd
 mkdir node-slackbot
 cd node-slackbot
 npm init -y
+npm install @octokit/rest @slack/bolt dotenv express helmet jszip nodemon openai
 sed -i 's|"main": "index.js"|"main": "src/index.mjs"|' package.json
 sed -i '/"scripts": {/a \    "test": "npm run test",' package.json
 sed -i '/"scripts": {/a \    "dev": "nodemon src/index.mjs",' package.json
 sed -i 's|"start": "node index.js"|"start": "node src/index.mjs"|' package.json
-npm install @octokit/rest @slack/bolt dotenv express helmet jszip nodemon openai
 ```{{exec}}
 
 When setup, your package.js should look like this:
