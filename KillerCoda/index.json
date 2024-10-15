@@ -14,6 +14,9 @@
           "verify": "step1/verify.sh"
         },
         {
+          "text": "step1.1/step1.1.md"
+        },
+        {
           "text": "step2/step2.md"
         },
         {

@@ -40,7 +40,7 @@ Next create a new file in the /botUI path called uiActionHandlers.mjs. In it add
 
 ```
 cd
-cd node-slackbot/botUI
+cd node-slackbot/src/botUI
 cat << 'EOF' > uiActionHandlers.mjs
 import dotenv from 'dotenv';
 
