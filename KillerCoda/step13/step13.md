@@ -45,17 +45,18 @@ const configuration = new OpenAI({\\
 Next we need to modify our *parseJobLog* function such that it not only determines if the job was successful or not but also calles the corresponding function to find the cause of the error as follows: 
 
 ```
-if (errorIndicators.test(logContent)) {
-    status = 'failure';
-
-    if(process.env.USE_GPT) {
-        causes = await findErrorCauseGPT(jobName, logContent);
-    }
-    else {
-        causes = findErrorCause(logContent);
-    }
-}
-```
+sed -i "/    let causes = [];/a\
+if (errorIndicators.test(logContent)) {\\
+    status = 'failure';\\
+\\
+    if(process.env.USE_GPT) {\\
+        causes = await findErrorCauseGPT(jobName, logContent);\\
+    }\\
+    else {\\
+        causes = findErrorCause(logContent);\\
+    }\\
+}" logProcessor.mjs
+``` {{exec}}
 
 This function should also return the error cause if the job failed. This is done by adding the following lines before the return statement of the function:
 
@@ -69,6 +70,19 @@ if (status === 'failure') {
     };
 }
 ```
+
+```
+sed -i '/return {/i\
+    if (status === '\''failure'\'') {\\
+        return {\\
+            jobName: jobName,\\
+            status: status,\\
+            jobNumber: parseInt(jobNumber),\\
+            causes: causes,\\
+        };\\
+    }' logProcessor.mjs
+```{{exec}}
+
 
 To determine the causes of the error we need to add the following functions to the **logProcessor.mjs** file:
 * *findErrorCause*
@@ -98,7 +112,7 @@ function findErrorCause(logContent) {
         const match = logContent.match(indicator.regex);
         if (match) {
             const contextLine = extractErrorContext(logContent, match.index);
-            causes.push(`${indicator.cause}: ${contextLine}`);
+            causes.push(indicator.cause + ": " contextLine);
         }
     }
 
@@ -133,13 +147,10 @@ The other way to determine the cause is, as stated earlier, by using the OpenAI 
 
 ```
 async function findErrorCauseGPT(jobName, logContent) {
-    const prompt = `You are an expert in analyzing software build logs.
-    Please review the following log from a GitHub Actions job named "${jobName}" that has failed:
-   
-    ${logContent}
-   
-    Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.`;
-
+    const prompt = 'You are an expert in analyzing software build logs.\n' +
+    'Please review the following log from a GitHub Actions job named "' + jobName + '" that has failed:\n\n' +
+    logContent + '\n\n' +
+    'Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.';
 
     try {
         console.log('Sending prompt to OpenAI API');
