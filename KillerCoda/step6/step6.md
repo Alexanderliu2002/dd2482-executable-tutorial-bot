@@ -21,7 +21,7 @@ export const registerCommands = (app) => {
     app.command('/thx1138', async ({ command, ack, say }) => {
         try {
             await ack();
-            await say(`The force is strong with this one.`);
+            await say("The force is strong with this one.");
         }
         catch (error) {
             console.error(error);
@@ -35,7 +35,7 @@ The following code exports a function that gathers all slash commands in a speci
 ```
 registerCommands(app);
 ```
-PS: Don't forget to import the command as well `import { registerCommands } from './commands.mjs';`! 
+PS: Don't forget to import the command as well import { registerCommands } from './commands.mjs';! 
 (alternatively click the block below:)
 
 ```
