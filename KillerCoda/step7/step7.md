@@ -89,7 +89,7 @@ cat << 'EOF' > botUI.json
       "type": "plain_text",
       "text": "Close"
     }
-EOD
+EOF
 ```{{exec}}
 
 This modal has a short line of text prompting the user to select an action by clicking the corresponding button and two buttons (one for each setup github action), each with a unique action_id:

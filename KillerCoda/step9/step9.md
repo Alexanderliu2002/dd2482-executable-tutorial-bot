@@ -67,13 +67,17 @@ In the uiActionHandlers.mjs file we need to call this function in order for the 
 
 First import the function at the top of the file:
 ```
-sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.mjs";' triggerAction.mjs
-```{{exec}}
+cd
+cd node-slackbot/botUI
+sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.mjs";' uiActionHandlers.mjs
+```{{exec}} 
 
 Modify the each action by adding the following line of code: 
+
 ```
-await triggerAction('event type');
-```
+sed -i "10i\await triggerAction('event type');" uiActionHandlers.mjs
+sed -i "25i\await triggerAction('event type');" uiActionHandlers.mjs
+```{{exec}} 
 
 The event type needs to be the same as the ones each action listens to in the workflow. The file should now look like this:
 
@@ -104,7 +108,6 @@ export const registerActionHandlers = (app) => {
     app.action('run_tests_action', async ({ ack, body, client }) => {
         try {
             await ack();
-            await triggerAction('trigger-ci');
             client.chat.postMessage({
                 channel: process.env.SLACK_CHANNEL_ID,
                 text: "Deploy event triggered"

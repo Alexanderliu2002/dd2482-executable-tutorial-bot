@@ -2,6 +2,9 @@
 We now have the logs but they are coded into zip files, one file per job. The parsing of these logs requires us to unzip these ones into objects and figuring out if each job was successful or failed. This is done through two functions, one that processes all log files and one that determines the success of the jobs individually. Firstly create a new file in the **/github-integrations** folder called logProcessor.mjs, and in it create a function called *processLogs* with the following code:
 
 ```
+cd
+cd node-slackbot/src/github-integrations
+cat << 'EOF' > logProcessor.mjs
 import JSZip from "jszip";
 
 
@@ -54,15 +57,16 @@ export async function processLogs(codedLogs) {
 
 
     return message;
-}
-
-```
+};
+EOF
+```{{exec}}
 
 This function decodes all files and processes the job logs individually, determining if the jobs were successful or not. After that it sorts the job logs based on the job number since the logs aren’t parsed in order of execution on github. Lastly it compiles a message that is returned.
 
 The function that process each job log is called *parseJobLog* and should look as follows:
 
 ```
+echo "
 async function parseJobLog(fileName, logContent) {
     const jobNumberMatch = fileName.match(/(?:.*\/)?(-?\d+)_/);
     const jobNumber = jobNumberMatch ? jobNumberMatch[1] : null;
@@ -95,7 +99,7 @@ async function parseJobLog(fileName, logContent) {
         jobNumber: parseInt(jobNumber),
     };
 }
-
-```
+" >> logProcessor.mjs
+```{{exec}}
 
 This function uses regular expressions to determine if the word error or fail occurs in the log. If the job was successful these words should not exist (except for the case continue on error which is neglected by the expression). It returns an object containing the jobName, jobNumber, and if it succeeded or not.
