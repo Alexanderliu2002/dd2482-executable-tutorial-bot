@@ -2,7 +2,7 @@
 
 Setup a Github Repo with actions and tasks of your choosing. 
 
-For this tutorial we will be using node-js and hence the JEST-package, but note that there exists similar testing modules for many other languages. 
+For this tutorial we will be using node-js and the JEST-package, but note that there exists similar testing modules for many other languages. 
 
 ----
 
