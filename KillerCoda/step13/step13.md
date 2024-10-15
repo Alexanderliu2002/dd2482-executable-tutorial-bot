@@ -27,18 +27,18 @@ USE_GPT = "TRUE"
 We also need to add the following lines to the top of the *logProcessor.mjs* file:
 
 ```
-import OpenAI from "openai";
-import dotenv from 'dotenv';
-
-
-dotenv.config();
-
-
-const configuration = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-```
+sed -i "2i\
+import OpenAI from 'openai';\\
+import dotenv from 'dotenv';\\
+\\
+\\
+dotenv.config();\\
+\\
+\\
+const configuration = new OpenAI({\\
+    apiKey: process.env.OPENAI_API_KEY,\\
+});" logProcessor.mjs\\
+```{{exec}}
 
 Next we need to modify our *parseJobLog* function such that it not only determines if the job was successful or not but also calles the corresponding function to find the cause of the error as follows: 
 
@@ -75,6 +75,7 @@ To determine the causes of the error we need to add the following functions to t
 
 The function **findErrorCause** should have the following lines of code:
 ```
+echo "
 function findErrorCause(logContent) {
     const errorIndicators = [
         { regex: /FAIL\s.+/i, cause: 'Test Failure' },
@@ -101,11 +102,12 @@ function findErrorCause(logContent) {
 
 
     return causes.length > 0 ? causes : ['Unknown Error'];
-}
+}" >> logProcessor.mjs
 ```
 
 It uses regular expressions to match possible errors with error indicators. These expressions are then searched for throughout the job log to find all possible error indicators. The function *extractErrorContext* compiles a string with the error indicator and the line of the log that the indicator was found on, removing date and time from the line. This line is later added to the entirety of the message sent to slack. The function is as follows:
 ```
+echo "
 function extractErrorContext(logContent, errorIndex) {
     const lines = logContent.split('\n');
     let contextLine = '';
@@ -122,7 +124,7 @@ function extractErrorContext(logContent, errorIndex) {
 
 
     return contextLine.replace(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z\s*/, '');
-}
+}" >> logProcessor.mjs
 ```
 
 The other way to determine the cause is, as stated earlier, by using the OpenAI API. This function should look as follows:

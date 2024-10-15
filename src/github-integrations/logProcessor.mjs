@@ -2,7 +2,7 @@ import JSZip from "jszip";
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config(); 
 
 const configuration = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
