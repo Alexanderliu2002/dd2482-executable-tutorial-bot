@@ -26,7 +26,7 @@ export async function processLogs(codedLogs) {
     }
 
     jobLogs.sort((a, b) => {
-        return parseInt(a.jobNumber) - parseInt(b.jobNumber); // Ascending order
+        return parseInt(a.jobNumber) - parseInt(b.jobNumber);
     });
     
     let message = '';
