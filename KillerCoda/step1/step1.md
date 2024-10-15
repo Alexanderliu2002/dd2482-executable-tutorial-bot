@@ -15,10 +15,10 @@ export NVM_DIR="$HOME/.nvm"
 nvm install --lts
 
 sudo apt update
-sudo apt install npm
+sudo apt install -y npm
 ```{{exec}}
 
-Submit Yes at the prompt:
+Submit Yes at any prompt:
 
 ```
 Yes
