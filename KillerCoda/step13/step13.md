@@ -18,10 +18,10 @@ USE_GPT = "TRUE"
 ```
 cd
 cd node-slackbot
-echo "
+echo '
 OPENAI_API_KEY = "Your OpenAI API key"
 USE_GPT = "TRUE"
-" >> .env
+' >> .env
 ```
 
 We also need to add the following lines to the top of the *logProcessor.mjs* file:
@@ -56,7 +56,7 @@ if (errorIndicators.test(logContent)) {\\
         causes = findErrorCause(logContent);\\
     }\\
 }" logProcessor.mjs
-``` {{exec}}
+```{{exec}}
 
 This function should also return the error cause if the job failed. This is done by adding the following lines before the return statement of the function:
 
@@ -69,8 +69,8 @@ if (status === 'failure') {
         causes: causes,
     };
 }
-```
-
+``` 
+ 
 ```
 sed -i '/return {/i\
     if (status === '\''failure'\'') {\\
@@ -81,7 +81,7 @@ sed -i '/return {/i\
             causes: causes,\\
         };\\
     }' logProcessor.mjs
-```{{exec}}
+```{{exec}} 
 
 
 To determine the causes of the error we need to add the following functions to the **logProcessor.mjs** file:
@@ -112,16 +112,17 @@ function findErrorCause(logContent) {
         const match = logContent.match(indicator.regex);
         if (match) {
             const contextLine = extractErrorContext(logContent, match.index);
-            causes.push(indicator.cause + ": " contextLine);
+            causes.push(indicator.cause + ': ' contextLine);
         }
     }
 
 
     return causes.length > 0 ? causes : ['Unknown Error'];
 }" >> logProcessor.mjs
-```
+``` 
 
 It uses regular expressions to match possible errors with error indicators. These expressions are then searched for throughout the job log to find all possible error indicators. The function *extractErrorContext* compiles a string with the error indicator and the line of the log that the indicator was found on, removing date and time from the line. This line is later added to the entirety of the message sent to slack. The function is as follows:
+
 ```
 echo "
 function extractErrorContext(logContent, errorIndex) {
@@ -146,9 +147,10 @@ function extractErrorContext(logContent, errorIndex) {
 The other way to determine the cause is, as stated earlier, by using the OpenAI API. This function should look as follows:
 
 ```
+echo "
 async function findErrorCauseGPT(jobName, logContent) {
     const prompt = 'You are an expert in analyzing software build logs.\n' +
-    'Please review the following log from a GitHub Actions job named "' + jobName + '" that has failed:\n\n' +
+    'Please review the following log from a GitHub Actions job named ' + jobName + ' that has failed:\n\n' +
     logContent + '\n\n' +
     'Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.';
 
@@ -156,10 +158,10 @@ async function findErrorCauseGPT(jobName, logContent) {
         console.log('Sending prompt to OpenAI API');
        
         const response = await configuration.chat.completions.create({
-            model: "gpt-4o",
+            model: 'gpt-4o',
             messages: [
                 {
-                    role: "system",
+                    role: 'system',
                     content: prompt,
                 },
             ],
@@ -173,7 +175,7 @@ async function findErrorCauseGPT(jobName, logContent) {
         console.log('Error sending prompt to OpenAI API, using default error causes');
         return findErrorCause(logContent);
     }
-}
+}" >> logProcessor.mjs
 ```
 
 This function uses a standard prompt, the name of the job, and the job log to instruct the LLM to find the error causes. The message received by the API is then retrieved and returned. If the API call were to fail the bot will use the manual way of determining the causes of error.

@@ -20,6 +20,7 @@ echo 'GITHUB_TOKEN = "Your token created on github"
 OWNER = "owner of the repo with the actions"
 REPO = "name of the repo with the actions"
 SERVER_URL = "url to the node application with the suffix /webhook"' >> .env
+' >> .env
 ```{{exec}}
 
 (Don't forget to add your own variables!)

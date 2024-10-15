@@ -35,10 +35,13 @@ The following code exports a function that gathers all slash commands in a speci
 ```
 registerCommands(app);
 ```
-(if you are lazy click below)
+PS: Don't forget to import the command as well `import { registerCommands } from './commands.mjs';`! 
+(alternatively click the block below:)
 
 ```
 sed -i '16i\registerCommands(app);' index.mjs
+sed -i "1i\import { registerCommands } from './commands.mjs';" index.mjs
+
 ```{{exec}}
 
 The index.js file should now look like this:

@@ -15,13 +15,7 @@ export NVM_DIR="$HOME/.nvm"
 nvm install --lts
 
 sudo apt update
-sudo apt install npm
-```{{exec}}
-
-Submit Yes at the prompt:
-
-```
-Yes
+sudo apt install -y npm
 ```{{exec}}
 
 And install git:
