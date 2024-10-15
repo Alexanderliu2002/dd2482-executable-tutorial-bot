@@ -1,6 +1,6 @@
 # Creating your Github Actions Repo
 
-Now you can take this repo and push it to your own account. Go to [github.com](https://github.com) and create a new repo. 
+Now you can take this repo and push it to your own account. Go to [github.com](https://github.com) and create a new repo. Do not initialize the repository with a README, .gitignore, or license
 
 Then copy this code and substitute the link to your repository:
 
