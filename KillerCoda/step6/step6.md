@@ -38,7 +38,7 @@ registerCommands(app);
 (if you are lazy click below)
 
 ```
-sed -i '17i\registerCommands(app);' index.mjs
+sed -i '18i\registerCommands(app);' index.mjs
 ```{{exec}}
 
 The index.js file should now look like this:
