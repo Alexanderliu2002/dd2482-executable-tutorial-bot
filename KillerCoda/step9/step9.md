@@ -1,6 +1,17 @@
 # Setting up Github integrations
 
-In this step we will integrate the bot with github using the github api. Firstly we will have to create a personal github token. This is done on the github page with the account that’s got access to the repository set up earlier in this tutorial. Copy the token and store it together with the owner of the repo and the name of trepo in the .env file. We also need to send the url of the node.js application as a parameter in our api call. Get it from killercoda and store it in the .env file. The file should now look like this:
+In this step we will integrate the bot with github using the github api. Firstly we will have to create a personal github token. This is done on the github page with the account that’s got access to the repository set up earlier in this tutorial. Copy the token and store it together with the owner of the repo and the name of repo in the .env file. We also need to send the url of the node.js application as a parameter in our api call. To open create a public url for our server we will be using ngrok. This requires an authetication key but we have provided you with one. Install ngrok and set it up using the following commands in a **new** terminal window:
+
+```
+cd node-slackbot
+curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+
+ngrok authtoken 2nKze8cn1oeKBqGG0haTk60GQfF_36QbLqB1om4KPvb2gXjSc
+
+ngrok http 4000
+```
+
+You should now see a url that has been crated for your server. Copy it and add it in the .env file with the suffix */webhook*
 
 ```
 cd
@@ -8,7 +19,7 @@ cd node-slackbot
 echo 'GITHUB_TOKEN = "Your token created on github"
 OWNER = "owner of the repo with the actions"
 REPO = "name of the repo with the actions"
-SERVER_URL = "url to the node application the suffix /webhook"' >> .env
+SERVER_URL = "url to the node application with the suffix /webhook"' >> .env
 ```{{exec}}
 
 (Don't forget to add your own variables!)
