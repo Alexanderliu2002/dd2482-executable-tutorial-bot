@@ -13,13 +13,15 @@ expressApp.post('/webhook', async (req, res) => {
 (click below)
 
 ```
+cd
+cd node-slackbot/src
 sed -i "/expressApp.use(helmet());/a\
-expressApp.post('/webhook', async (req, res) => {
-    console.log('Received a webhook event');
-    const runId = req.body.run_id;
-
-
-    res.send('Received a webhook event');
+expressApp.post('/webhook', async (req, res) => {\\
+    console.log('Received a webhook event');\\
+    const runId = req.body.run_id;\\
+\\
+\\
+    res.send('Received a webhook event');\\
 });" index.mjs
 ```{{exec}}
 

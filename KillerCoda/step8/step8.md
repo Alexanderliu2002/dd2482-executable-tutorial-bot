@@ -33,7 +33,7 @@ sed -i "2i\import { registerActionHandlers } from './botUI/uiActionHandlers.mjs'
 In the function registerCommands add the following line of code:
 
 ```
-sed -i "37i\registerActionHandlers(app);" commands.mjs
+sed -i "25i\   registerActionHandlers(app);" commands.mjs
 ```{{exec}}
 
 Next create a new file in the /botUI path called uiActionHandlers.mjs. In it add the following lines of code:

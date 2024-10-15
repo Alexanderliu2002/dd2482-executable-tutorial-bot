@@ -27,6 +27,8 @@ USE_GPT = "TRUE"
 We also need to add the following lines to the top of the *logProcessor.mjs* file:
 
 ```
+cd
+cd node-slackbot/src/github-integrations
 sed -i "2i\
 import OpenAI from 'openai';\\
 import dotenv from 'dotenv';\\
@@ -37,7 +39,7 @@ dotenv.config();\\
 \\
 const configuration = new OpenAI({\\
     apiKey: process.env.OPENAI_API_KEY,\\
-});" logProcessor.mjs\\
+});" logProcessor.mjs
 ```{{exec}}
 
 Next we need to modify our *parseJobLog* function such that it not only determines if the job was successful or not but also calles the corresponding function to find the cause of the error as follows: 
