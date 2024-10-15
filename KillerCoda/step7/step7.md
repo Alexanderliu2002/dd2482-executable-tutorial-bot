@@ -16,22 +16,27 @@ cd node-slackbot/src
 sed -i "1i\import botUI from './botUI/botUI.json' assert { type: 'json' };" commands.mjs
 ```{{exec}}
 
-These lines import modules from to files we will create shortly. In the function registerCommands add the following command actions:
+These lines import modules from to files we will create shortly. In the function *registerCommands.mjs* add the following command actions:
 
 ```
-app.command('/github', async ({ command, ack, client }) => {
-        try {
-            await ack();
-            await client.views.open({
-                trigger_id: command.trigger_id,
-                view: botUI
-            });
-        }
-        catch (error) {
-            console.error(error);
-        }
-    });
-``` 
+cd node-slackbot/src
+sed -i "/^}/i\
+    \    app.command('/github', async ({ command, ack, client }) => {\n\
+    \    try {\n\
+    \        await ack();\n\
+    \        await client.views.open({\n\
+    \            trigger_id: command.trigger_id,\n\
+    \            view: botUI\n\
+    \        });\n\
+    \    }\n\
+    \    catch (error) {\n\
+    \        console.error(error);\n\
+    \    }\n\
+    \});\n" commands.mjs
+EOF
+```{{exec}}
+
+
 
 This function opens a modal called **botUI** instead of sending a message like the last slash command we created.
 
