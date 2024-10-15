@@ -78,13 +78,13 @@ export async function getActionLog(runId) {
 
 We call **waitForRunToComplete** and if it returns we get the action logs using the id of the actions run.
 
-Finally we call **getActionLog** from the webhook receiver in index.mjs my modifying it with the following code:
+Finally we call **getActionLog** from the webhook receiver in index.mjs by modifying it with the following code:
 
 ``` 
 cd
 cd node-slackbot/src
 sed -i "/res.send('Received a webhook event');/a\
-try {\\
+    try {\\
         const codedLogs = await getActionLog(runId);\\
         console.log('Sending message to Slack');\\
     } catch (error) {\\
