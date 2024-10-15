@@ -12,22 +12,22 @@ Follow the setup, choosing a name for the workspace and creating your own profil
 
 Note that the name of the channel #general in the image is the name I chose when setting up the workspace. You might have a different channel name. 
 
-Once you have a slack workspace set up, go the [https://api.slack.com/apps](https://api.slack.com/apps) website to create a slack app. Once signed in with the same account as the workspace was created with, Click on the *Create New AppÄ button in the top right corner. And click on the *From scratch* option in the just shown modal.  
+Once you have a slack workspace set up, go the [https://api.slack.com/apps](https://api.slack.com/apps) website to create a slack app. Once signed in with the same account as the workspace was created with, Click on the *Create New App* button in the top right corner. And click on the *From scratch* option in the just shown modal.  
 
 <img src="../assets/slack_4.3.png">
 <img src="../assets/slack_4.4.png">
 
-Choose a name for your slack app and pick **the workspace you just created**. From the possible workspaces. Finally click the button *Create App* to create your slack app.
+Choose a name for your slack app and select **the workspace you just created**. From the possible workspaces. Finally click the button *Create App* to create your slack app.
 
 <img src="../assets/slack_4.5.png">
 
 You now have a workspace and a slack app. The next step is to give your app the required permissions, installing it in the workspace and saving the necessary secrets for our Node.js app.
 
-Firstly, under basic information find the *Signing* secret, show it and copy it for later.
+Firstly, under basic information find the *Signing secret*, show it and copy it for later.
 
 <img src="../assets/slack_4.6.png">
 
-Secondly, in the right menu under **Features** find the *OAuth & Permissions section*. There, scroll down to Scopes and give the app the following OAuth scopes:
+Secondly, in the right menu under **Features** find the *OAuth & Permissions* section. There, scroll down to Scopes and give the app the following OAuth scopes:
 
 <img src="../assets/slack_4.7.png">
 
