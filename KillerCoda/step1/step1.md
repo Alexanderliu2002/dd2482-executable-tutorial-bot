@@ -9,6 +9,11 @@ For this tutorial we will be using node-js and the JEST-package, but note that t
 Let's start by importing and setting up our node project which we want to add our Github Actions to, in this case a simple calculator app:
 
 ```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install --lts
+
 sudo apt update
 sudo apt install npm
 ```{{exec}}
