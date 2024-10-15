@@ -1,5 +1,5 @@
 # Parsing Github logs
-We now have the logs but they are coded into zip files, one file per job. The parsing of these logs requires us to unzip these ones into objects and figuring out if each job was successful or failed. This is done through two functions, one that processes all log files and one that determines the success of the jobs individually. Firstly create a new file in the /github-integrations folder called logProcessor.mjs, and in it create a function called *processLogs* with the following code:
+We now have the logs but they are coded into zip files, one file per job. The parsing of these logs requires us to unzip these ones into objects and figuring out if each job was successful or failed. This is done through two functions, one that processes all log files and one that determines the success of the jobs individually. Firstly create a new file in the **/github-integrations** folder called logProcessor.mjs, and in it create a function called *processLogs* with the following code:
 
 ```
 import JSZip from "jszip";
