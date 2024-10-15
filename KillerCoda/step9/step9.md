@@ -63,7 +63,7 @@ export async function triggerAction(eventType) {
         });
 
 
-        console.log('Triggered ' + eventType + ' action);
+        console.log('Triggered ' + eventType + ' action');
     } catch (error) {
         console.error(error);
     }

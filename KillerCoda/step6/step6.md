@@ -21,7 +21,7 @@ export const registerCommands = (app) => {
     app.command('/thx1138', async ({ command, ack, say }) => {
         try {
             await ack();
-            await say(`The force is strong with this one.`); // Easter egg! :)
+            await say(`The force is strong with this one.`);
         }
         catch (error) {
             console.error(error);

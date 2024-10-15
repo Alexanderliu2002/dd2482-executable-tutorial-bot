@@ -93,6 +93,7 @@ cat << 'EOF' > botUI.json
       "type": "plain_text",
       "text": "Close"
     }
+}
 EOF
 ```{{exec}}
 
