@@ -5,11 +5,10 @@ In this step we will integrate the bot with github using the github api. Firstly
 ```
 cd
 cd node-slackbot
-echo "GITHUB_TOKEN = "Your token created on github"
+echo 'GITHUB_TOKEN = "Your token created on github"
 OWNER = "owner of the repo with the actions"
 REPO = "name of the repo with the actions"
-SERVER_URL = "url to the node application the suffix /webhook"
-" >> .env
+SERVER_URL = "url to the node application the suffix /webhook"' >> .env
 ```{{exec}}
 
 (Don't forget to add your own variables!)
@@ -53,7 +52,7 @@ export async function triggerAction(eventType) {
         });
 
 
-        console.log(`Triggered ${eventType} action`);
+        console.log('Triggered ' + eventType + ' action);
     } catch (error) {
         console.error(error);
     }
@@ -75,8 +74,8 @@ sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.m
 Modify the each action by adding the following line of code: 
 
 ```
-sed -i "10i\await triggerAction('event type');" uiActionHandlers.mjs
-sed -i "25i\await triggerAction('event type');" uiActionHandlers.mjs
+sed -i "10i\            await triggerAction('event type');" uiActionHandlers.mjs
+sed -i "25i\            await triggerAction('event type');" uiActionHandlers.mjs
 ```{{exec}} 
 
 The event type needs to be the same as the ones each action listens to in the workflow. The file should now look like this:
