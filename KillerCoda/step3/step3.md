@@ -2,6 +2,8 @@
 
 Great work so far! Now we will get to setting up the GitHub action, which we assume you already have some previous knowledge of already. Let's start by creating the workflow folder and YAML files:
 
+Now let's create two basic .yml files, we'll start with the **ci.yml** file:
+
 ```
 cd
 cd dd2482-executable-tutorial
@@ -9,13 +11,7 @@ mkdir .github
 cd .github
 mkdir workflows
 cd workflows
-touch ci.yml
-touch deploy.yml
-```{{exec}}
-
-Now let's create a basic ci.yml file. We've prepared some code for you to copy and paste ahead of time:
-
-```
+cat << 'EOF' > ci.yml
 name: CI
 
 on:
@@ -54,14 +50,17 @@ jobs:
         curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
         -d '{"run_id": "${{ github.run_id }}"}'
-
-``` 
+EOF
+```{{exec}}
 
 BUT WAIT! Did you notice anything off about this ci.yml file? If you did, kudos to you! The final job in the file "Notify Webhook" contains a command to send a POST-request to a specified webhook with the "github.run_id". This is very important, since it lets us access this action and its logs using the API in later steps!
 
-Let's also add some very simple placeholder to our deploy.yml file. Note that this one is also has the POST-request job at the bottom:
+Let's now create our **deploy.yml** file, and don't forget the same POST-request job at the bottom!:
 
 ```
+cd
+cd dd2482-executable-tutorial/.github/workflows
+cat << 'EOF' > deploy.yml
 name: Deploy to Production
 
 on:
@@ -86,4 +85,5 @@ jobs:
           curl -X POST ${{ github.event.client_payload.post_url }} \
           -H "Content-Type: application/json" \
           -d '{"run_id": "${{ github.run_id }}"}'
-``` 
+EOF
+```{{exec}}
