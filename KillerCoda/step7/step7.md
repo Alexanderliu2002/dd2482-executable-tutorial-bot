@@ -33,7 +33,6 @@ sed -i "/^}/i\
     \        console.error(error);\n\
     \    }\n\
     \});\n" commands.mjs
-EOF
 ```{{exec}}
 
 

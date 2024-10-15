@@ -112,7 +112,7 @@ function findErrorCause(logContent) {
         const match = logContent.match(indicator.regex);
         if (match) {
             const contextLine = extractErrorContext(logContent, match.index);
-            causes.push(`${indicator.cause}: ${contextLine}`);
+            causes.push(indicator.cause + ": " contextLine);
         }
     }
 
@@ -147,13 +147,10 @@ The other way to determine the cause is, as stated earlier, by using the OpenAI 
 
 ```
 async function findErrorCauseGPT(jobName, logContent) {
-    const prompt = `You are an expert in analyzing software build logs.
-    Please review the following log from a GitHub Actions job named "${jobName}" that has failed:
-   
-    ${logContent}
-   
-    Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.`;
-
+    const prompt = 'You are an expert in analyzing software build logs.\n' +
+    'Please review the following log from a GitHub Actions job named "' + jobName + '" that has failed:\n\n' +
+    logContent + '\n\n' +
+    'Please provide a brief description of the causes of the failure. The description will be sent in a Slack message to the team.';
 
     try {
         console.log('Sending prompt to OpenAI API');
