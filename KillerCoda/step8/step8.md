@@ -26,7 +26,7 @@ import { registerActionHandlers } from './botUI/uiActionHandlers.mjs';
 
 ```
 cd
-cd cd node-slackbot/src
+cd node-slackbot/src
 sed -i "2i\import { registerActionHandlers } from './botUI/uiActionHandlers.mjs';" commands.mjs
 ```{{exec}}
 
@@ -35,3 +35,48 @@ In the function registerCommands add the following line of code:
 ```
 registerActionHandlers(app);
 ```
+
+Next create a new file in the /botUI path called uiActionHandlers.mjs. In it add the following lines of code:
+
+```
+cd
+cd node-slackbot/botUI
+cat << 'EOF' > uiActionHandlers.mjs
+import dotenv from 'dotenv';
+
+
+dotenv.config();
+
+
+export const registerActionHandlers = (app) => {
+    app.action('deploy_master_action', async ({ ack, body, client }) => {
+        try {
+            await ack();
+            client.chat.postMessage({
+                channel: process.env.SLACK_CHANNEL_ID,
+                text: "Deploy event triggered"
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    });
+
+
+    app.action('run_tests_action', async ({ ack, body, client }) => {
+        try {
+            await ack();
+            client.chat.postMessage({
+                channel: process.env.SLACK_CHANNEL_ID,
+                text: "Deploy event triggered"
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    });
+};
+EOF
+```{{exec}} 
+
+You see that the file exports the action listeners for the button events. Each action listener listens on one of the actions ID's specified in the earlier step. When one of the buttons is clicked the listener sends a message to slack saying that it triggered an event. If you start the server, launch the modal and click one of the buttons you should see a message being sent by the bot that the wished event just triggered. The next step is to integrate the bot with the github API.

@@ -11,6 +11,7 @@ import botUI from './botUI/botUI.json' assert { type: 'json' };
 (if you are lazy click below)
 
 ```
+cd
 cd node-slackbot/src
 sed -i "1i\import botUI from './botUI/botUI.json' assert { type: 'json' };" commands.mjs
 ```{{exec}}
