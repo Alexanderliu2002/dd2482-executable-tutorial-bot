@@ -47,7 +47,11 @@ The last step we need to finish in the configuration of the slack app is to crea
 
 <img src="../assets/slack_4.11.png">
 
-When generated, copy the token and save it for later. By now the foundation for the app should be all set up and you should have the following secrets saved for our .env file:
+When generated, copy the token and save it for later. 
+
+Lastly we need to add the bot to the channel in our slack workspace. This is done by navigating to slack and in the text field typing */invite @[bot-name]*. You should now see that the bot has been added to a channel and we can send messages to the bot here.
+
+By now the foundation for the app should be all set up and you should have the following secrets saved for our .env file:
 - Slack signing secret
 - Slack OAuth token
 - Slack App token
