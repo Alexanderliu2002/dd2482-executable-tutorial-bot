@@ -33,8 +33,8 @@ sed -i "2i\import { registerActionHandlers } from './botUI/uiActionHandlers.mjs'
 In the function registerCommands add the following line of code:
 
 ```
-registerActionHandlers(app);
-```
+sed -i "37i\registerActionHandlers(app);" commands.mjs
+```{{exec}}
 
 Next create a new file in the /botUI path called uiActionHandlers.mjs. In it add the following lines of code:
 
@@ -44,9 +44,7 @@ cd node-slackbot/botUI
 cat << 'EOF' > uiActionHandlers.mjs
 import dotenv from 'dotenv';
 
-
 dotenv.config();
-
 
 export const registerActionHandlers = (app) => {
     app.action('deploy_master_action', async ({ ack, body, client }) => {

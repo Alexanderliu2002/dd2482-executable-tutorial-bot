@@ -80,12 +80,13 @@ We call **waitForRunToComplete** and if it returns we get the action logs using 
 
 Finally we call **getActionLog** from the webhook receiver in index.mjs my modifying it with the following code:
 
-```
+``` 
+sed -i "/res.send('Received a webhook event');/a\
 try {
         const codedLogs = await getActionLog(runId);
         console.log('Sending message to Slack');
     } catch (error) {
         console.error(error);
         console.log('Error sending message to Slack');
-    }
+    }" index.mjs
 ```

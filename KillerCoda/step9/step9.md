@@ -67,12 +67,15 @@ In the uiActionHandlers.mjs file we need to call this function in order for the 
 
 First import the function at the top of the file:
 ```
-sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.mjs";' triggerAction.mjs
+sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.mjs";' uiActionHandlers.mjs
 ```{{exec}}
 
 Modify the each action by adding the following line of code: 
+
 ```
-await triggerAction('event type');
+sed -i "9i\await triggerAction('event type');" uiActionHandlers.mjs
+sed -i "22i\await triggerAction('event type');" uiActionHandlers.mjs
+
 ```
 
 The event type needs to be the same as the ones each action listens to in the workflow. The file should now look like this:
