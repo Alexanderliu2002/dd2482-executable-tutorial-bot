@@ -18,12 +18,6 @@ sudo apt update
 sudo apt install -y npm
 ```{{exec}}
 
-Submit Yes at any prompt:
-
-```
-Yes
-```{{exec}}
-
 And install git:
 
 ```
