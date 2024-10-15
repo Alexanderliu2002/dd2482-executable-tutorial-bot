@@ -2,13 +2,17 @@
 
 Okay, FANTASTIC job so far, we are now done with all the prep!
 
-It's now time to start making the slackbot in node.js. We'll start by installing our packages
+It's now time to set up the node application and install the needed packages. We also create more scripts that are useful for developing our node applciation.
 
 ```
 cd
 mkdir node-slackbot
 cd node-slackbot
 npm init -y
+sed -i 's|"main": "index.js"|"main": "src/index.mjs"|' package.json
+sed -i '/"scripts": {/a \    "test": "npm run test",' package.json
+sed -i '/"scripts": {/a \    "dev": "nodemon src/index.mjs",' package.json
+sed -i 's|"start": "node index.js"|"start": "node src/index.mjs"|' package.json
 npm install @octokit/rest @slack/bolt dotenv express helmet jszip nodemon openai
 ```{{exec}}
 
