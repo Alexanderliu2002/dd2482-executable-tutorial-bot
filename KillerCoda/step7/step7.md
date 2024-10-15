@@ -44,7 +44,7 @@ The file **botUI.json** will store the configuration for our UI, created using S
 
 ```
 cd
-cd node-slackbot
+cd node-slackbot/src
 mkdir botUI
 cd botUI
 cat << 'EOF' > botUI.json

@@ -67,7 +67,7 @@ In the uiActionHandlers.mjs file we need to call this function in order for the 
 First import the function at the top of the file:
 ```
 cd
-cd node-slackbot/botUI
+cd node-slackbot/src/botUI
 sed -i '1i\import { triggerAction } from "../github-integrations/triggerAction.mjs";' uiActionHandlers.mjs
 ```{{exec}} 
 
