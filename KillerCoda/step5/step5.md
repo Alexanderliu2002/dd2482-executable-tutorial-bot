@@ -24,9 +24,9 @@ Create a .env file in the root of the project and assign the following environme
 
 ```
 cat << 'EOF' > .env
-SLACK_BOT_TOKEN = "The Slack OAuth token from step 1"
-SLACK_SIGNING_SECRET = "The Slack sign in secret from step 1"
-APP_TOKEN = "The Slack app token from step 1"
+SLACK_BOT_TOKEN = "The Slack OAuth token from the previous step"
+SLACK_SIGNING_SECRET = "The Slack sign in secret from the previous step"
+APP_TOKEN = "The Slack app-level token from the previous step"
 SLACK_PORT = 5000
 EXPRESS_PORT = 4000
 EOF
